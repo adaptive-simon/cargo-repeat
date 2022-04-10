@@ -10,6 +10,13 @@ categories = ["command-line-utilities", "development-tools::cargo-plugins"]
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
+exclude = [
+    ".idea",
+    ".github",
+    ".gitignore",
+    "cargo-repeat.iml",
+    "Commands.toml"
+]
 
 [dependencies]
 clap = { version = "3.1.8", features = ["derive", "cargo"] }
