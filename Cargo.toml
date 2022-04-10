@@ -1,0 +1,15 @@
+[package]
+name = "cargo-repeat"
+description = "Repeats a command until it exits with the right code"
+homepage = "https://seranth.github.io/cargo-repeat/"
+documentation = "https://github.com/seranth/cargo-repeat/wiki"
+repository = "https://github.com/seranth/cargo-repeat"
+readme = "README.md"
+keywords = ["cargo", "repeat"]
+categories = ["command-line-utilities", "development-tools::cargo-plugins"]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[dependencies]
+clap = { version = "3.1.8", features = ["derive", "cargo"] }
