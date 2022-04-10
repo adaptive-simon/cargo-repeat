@@ -1,0 +1,5 @@
+test = { cmd = [
+    "cargo build",
+    "cargo install --path .",
+    "cargo repeat -v -- python test.py"
+], parallel = false }

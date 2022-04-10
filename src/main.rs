@@ -3,6 +3,7 @@ use std::process::Command;
 use clap::Parser;
 
 #[derive(Parser, Debug)]
+#[clap(name = "cargo repeat")]
 #[clap(author, version, about, long_about = None)]
 struct Args {
     /// Verbose
@@ -16,7 +17,7 @@ struct Args {
     s: f64,
     /// Command and arguments to repeat
     #[clap(last = true)]
-    target: Vec<String>,
+    command: Vec<String>,
 }
 
 fn run(args: &Args) -> Result<i32, std::io::Error> {
@@ -28,7 +29,7 @@ fn run(args: &Args) -> Result<i32, std::io::Error> {
 
     let child_process = Command::new(shell[0])
         .arg(shell[1])
-        .args(&args.target)
+        .args(&args.command)
         .spawn()
         .expect("failed to execute process");
 
@@ -40,7 +41,18 @@ fn run(args: &Args) -> Result<i32, std::io::Error> {
 
 fn main() -> Result<(), std::io::Error> {
     let start = std::time::SystemTime::now();
-    let args = Args::parse();
+    let mut oargs: Vec<String> = std::env::args().collect();
+    if oargs.len() > 1 {
+        if oargs[1] == "repeat".to_string() {
+            oargs.remove(1);
+        }
+    }
+    let args = Args::parse_from(oargs);
+    if args.command.len() == 0 {
+        println!("No command supplied, exiting.");
+        return Ok(());
+    }
+
     let expected_status = args.c.clone();
 
     let mut counter = 0;
